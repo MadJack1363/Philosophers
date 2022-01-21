@@ -6,7 +6,7 @@
 #    By: majacque <majacque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/21 15:09:55 by majacque          #+#    #+#              #
-#    Updated: 2022/01/21 15:14:11 by majacque         ###   ########.fr        #
+#    Updated: 2022/01/21 21:03:28 by majacque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,14 +26,17 @@ NAME				=	philosophers
 #######################################
 #             DIRECTORIES             #
 #######################################
-SRC_DIR				=	srcs/
 OBJ_DIR				=	objs/
-PRV_DIR				=	private/
 
 ######################################
 #            SOURCE FILES            #
 ######################################
 SRC				=	\
+					ft_atoi.c		\
+					ft_isdigit.c	\
+					ft_iswspace.c	\
+					inputs.c		\
+					main.c			\
 
 ######################################
 #            OBJECT FILES            #
@@ -65,7 +68,7 @@ all: ${NAME}
 
 -include ${DEP}
 
-${OBJ_DIR}%.o: ${SRC_DIR}%.c
+${OBJ_DIR}%.o: %.c
 	@${MKDIR} ${@D}
 	${CC} $@ ${CFLAGS} $<
 
