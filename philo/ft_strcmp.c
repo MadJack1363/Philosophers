@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/21 20:34:44 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/24 11:36:21 by majacque         ###   ########.fr       */
+/*   Created: 2022/01/24 11:35:56 by majacque          #+#    #+#             */
+/*   Updated: 2022/01/24 11:35:59 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	int		i;
+	int		nb;
 
-# include <stdbool.h>
-# include <stdlib.h>
-
-int		ft_atoi(const char *str);
-int		ft_strcmp(const char *s1, const char *s2);
-
-size_t	ft_intlen(int nb);
-
-char	*ft_itoa(int n);
-
-void	*ft_calloc(size_t count, size_t size);
-
-void	ft_bzero(void *s, size_t n);
-
-bool	ft_isdigit(int c);
-bool	ft_iswspace(int c);
-
-#endif
+	if (!s1 || !s2)
+		return (-1);
+	i = 0;
+	nb = 0;
+	while (s1[i] || s2[i])
+	{
+		if ((unsigned char)s1[i] != (unsigned char)s2[i])
+		{
+			nb = (unsigned char)s1[i] - (unsigned char)s2[i];
+			return (nb);
+		}
+		i++;
+	}
+	return (nb);
+}

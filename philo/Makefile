@@ -6,7 +6,7 @@
 #    By: majacque <majacque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/21 15:09:55 by majacque          #+#    #+#              #
-#    Updated: 2022/01/21 21:03:28 by majacque         ###   ########.fr        #
+#    Updated: 2022/01/24 11:44:41 by majacque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,13 @@ OBJ_DIR				=	objs/
 ######################################
 SRC				=	\
 					ft_atoi.c		\
+					ft_bzero.c		\
+					ft_calloc.c		\
+					ft_intlen.c		\
 					ft_isdigit.c	\
 					ft_iswspace.c	\
+					ft_itoa.c		\
+					ft_strcmp.c		\
 					inputs.c		\
 					main.c			\
 

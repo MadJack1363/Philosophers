@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_intlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/21 20:34:44 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/24 11:36:21 by majacque         ###   ########.fr       */
+/*   Created: 2022/01/24 11:25:29 by majacque          #+#    #+#             */
+/*   Updated: 2022/01/24 11:26:20 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "libft.h"
 
-# include <stdbool.h>
-# include <stdlib.h>
+size_t	ft_intlen(int nb)
+{
+	size_t			len;
+	unsigned int	u_nb;
 
-int		ft_atoi(const char *str);
-int		ft_strcmp(const char *s1, const char *s2);
-
-size_t	ft_intlen(int nb);
-
-char	*ft_itoa(int n);
-
-void	*ft_calloc(size_t count, size_t size);
-
-void	ft_bzero(void *s, size_t n);
-
-bool	ft_isdigit(int c);
-bool	ft_iswspace(int c);
-
-#endif
+	if (nb < 0)
+		u_nb = -nb;
+	else
+		u_nb = nb;
+	len = 0;
+	if (nb <= 0)
+		len++;
+	while (u_nb > 0)
+	{
+		u_nb /= 10;
+		len++;
+	}
+	return (len);
+}

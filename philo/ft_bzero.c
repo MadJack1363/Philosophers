@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/21 20:34:44 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/24 11:36:21 by majacque         ###   ########.fr       */
+/*   Created: 2022/01/24 11:26:49 by majacque          #+#    #+#             */
+/*   Updated: 2022/01/24 11:26:56 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "libft.h"
 
-# include <stdbool.h>
-# include <stdlib.h>
+void	ft_bzero(void *s, size_t n)
+{
+	size_t			i;
+	unsigned char	*buffer;
 
-int		ft_atoi(const char *str);
-int		ft_strcmp(const char *s1, const char *s2);
-
-size_t	ft_intlen(int nb);
-
-char	*ft_itoa(int n);
-
-void	*ft_calloc(size_t count, size_t size);
-
-void	ft_bzero(void *s, size_t n);
-
-bool	ft_isdigit(int c);
-bool	ft_iswspace(int c);
-
-#endif
+	i = 0;
+	buffer = (unsigned char *)s;
+	while (i++ < n)
+		*buffer++ = 0;
+}

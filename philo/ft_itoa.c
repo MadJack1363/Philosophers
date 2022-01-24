@@ -1,33 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/21 20:34:44 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/24 11:36:21 by majacque         ###   ########.fr       */
+/*   Created: 2022/01/24 11:24:04 by majacque          #+#    #+#             */
+/*   Updated: 2022/01/24 11:26:23 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "libft.h"
 
-# include <stdbool.h>
-# include <stdlib.h>
+char	*ft_itoa(int n)
+{
+	char			*str;
+	size_t			size;
+	unsigned int	nb;
 
-int		ft_atoi(const char *str);
-int		ft_strcmp(const char *s1, const char *s2);
-
-size_t	ft_intlen(int nb);
-
-char	*ft_itoa(int n);
-
-void	*ft_calloc(size_t count, size_t size);
-
-void	ft_bzero(void *s, size_t n);
-
-bool	ft_isdigit(int c);
-bool	ft_iswspace(int c);
-
-#endif
+	if (n < 0)
+		nb = -n;
+	else
+		nb = n;
+	size = ft_intlen(n);
+	str = ft_calloc((size + 1), sizeof(char));
+	if (!str)
+		return (NULL);
+	if (n < 0)
+		*str = '-';
+	if (n == 0)
+		*str = '0';
+	while (nb > 0)
+	{
+		size--;
+		str[size] = (nb % 10) + '0';
+		nb /= 10;
+	}
+	return (str);
+}
