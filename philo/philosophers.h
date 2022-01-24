@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 21:01:00 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/21 21:14:48 by majacque         ###   ########.fr       */
+/*   Updated: 2022/01/24 14:42:54 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
+
 # include <sys/time.h>
+# include <pthread.h>
 
 # include "libft.h"
 

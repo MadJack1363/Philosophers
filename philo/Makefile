@@ -6,7 +6,7 @@
 #    By: majacque <majacque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/21 15:09:55 by majacque          #+#    #+#              #
-#    Updated: 2022/01/24 11:44:41 by majacque         ###   ########.fr        #
+#    Updated: 2022/01/24 15:57:29 by majacque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,13 +55,18 @@ DEP				=	${OBJ:.o=.d}
 #                FLAGS                #
 #######################################
 CFLAGS			=	-Wall -Wextra -Werror
-CFLAGS			+=	-MMD -MP
+CFLAGS			+=	-MMD -MP -pthread
 
-LDFLAGS			=
+LDFLAGS			= -pthread
 
 ifeq (${DEBUG}, 1)
 	CFLAGS		+=	-g
 endif
+
+#######################################
+#              VARIABLES              #
+#######################################
+VG_OPT = --tool=drd
 
 #######################################
 #                RULES                #
@@ -82,4 +87,9 @@ clean:
 
 re: clean all
 
-.PHONY: all clean fclean re fre
+valgrind:
+	${MAKE} ${NAME} DEBUG=1
+	@read -p "arguments: " arguments;	\
+	$@ ${VG_OPT} ./${NAME} $$arguments
+
+.PHONY: all clean fclean re fre valgrind
