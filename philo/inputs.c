@@ -6,35 +6,11 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 21:01:49 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/24 12:04:27 by majacque         ###   ########.fr       */
+/*   Updated: 2022/01/26 15:23:15 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
-// RLIMIT_NPROC
-#include <sys/resource.h>
-
-static int	__check_input(char *str)
-{
-	char	*tmp;
-	int		nb;
-
-	nb = ft_atoi(str);
-	tmp = ft_itoa(nb);
-	if (tmp == NULL)
-		return (1);
-	if (*str == '+')
-		str++;
-	if (ft_strcmp(tmp, str))
-	{
-		free(tmp);
-		return (1);
-	}
-	free(tmp);
-	if (nb < 1)
-		return (1);
-	return (0);
-}
+#include "inputs.h"
 
 static int	__error(char *str)
 {
@@ -61,6 +37,28 @@ int	get_inputs(t_inputs *inputs, int argc, char **argv)
 	}
 	else
 		inputs->nb_time_must_eat = -1;
+	return (0);
+}
+
+static int	__check_input(char *str)
+{
+	char	*tmp;
+	int		nb;
+
+	nb = ft_atoi(str);
+	tmp = ft_itoa(nb);
+	if (tmp == NULL)
+		return (1);
+	if (*str == '+')
+		str++;
+	if (ft_strcmp(tmp, str))
+	{
+		free(tmp);
+		return (1);
+	}
+	free(tmp);
+	if (nb < 1)
+		return (1);
 	return (0);
 }
 
