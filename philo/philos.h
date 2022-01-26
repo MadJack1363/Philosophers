@@ -1,35 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   philos.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 14:43:12 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/26 16:30:31 by majacque         ###   ########.fr       */
+/*   Updated: 2022/01/26 19:08:19 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOPHERS_H
-# define PHILOSOPHERS_H
+#ifndef PHILOS_H
+# define PHILOS_H
 
 # include <pthread.h>
 # include <stdbool.h>
 
+# include "environment.h"
+
 typedef struct s_philo		t_philo;
-typedef enum e_philo_state	t_philo_state;
+typedef enum e_state	t_state;
 
 struct s_philo
 {
-	pthread_mutex_t	*tlk_stick;
-	pthread_mutex_t	*r_fork;
-	pthread_mutex_t	*l_fork;
-	t_philo_state	state;
-	bool			stop;
-	long			last_eat;
+	int		id;
+	t_mutex	*tlk_stick;
+	t_mutex	*r_fork;
+	t_mutex	*l_fork;
+	t_mutex	access_philo;
+	t_state	state;
+	bool	stop;
+	long	last_eat;
 };
 
-enum	e_philo_state
+enum	e_state
 {
 	S_WAIT,
 	S_EAT,
@@ -38,6 +42,9 @@ enum	e_philo_state
 	S_DEAD
 };
 
-int	philos_init(pthread_t **philos, int nb_philo);
+int		philos_init(t_environment *env);
+int		data_philos_create(t_philo **data_philos, int nb_philo);
+
+void	data_philos_clean(t_philo *data_philos, int index);
 
 #endif

@@ -6,13 +6,14 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 15:11:45 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/26 16:31:50 by majacque         ###   ########.fr       */
+/*   Updated: 2022/01/26 20:41:08 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// TODO renommer mutex.c --> forks_stick.c
 #include "mutex.h"
 
-int	clean_forks(pthread_mutex_t *forks, int index)
+int	clean_forks(t_mutex *forks, int index)
 {
 	int	ret;
 	int	i;
@@ -30,7 +31,7 @@ int	clean_forks(pthread_mutex_t *forks, int index)
 	return (ret);
 }
 
-int	clean_mutex(pthread_mutex_t *forks, pthread_mutex_t tlk_stick, int index)
+int	clean_forks_stick(t_mutex *forks, t_mutex tlk_stick, int index)
 {
 	int	ret;
 	int	i;
@@ -43,11 +44,11 @@ int	clean_mutex(pthread_mutex_t *forks, pthread_mutex_t tlk_stick, int index)
 	return (ret);
 }
 
-int	forks_init(pthread_mutex_t **forks, int nb_philo)
+int	forks_init(t_mutex **forks, int nb_philo)
 {
 	int	i;
 
-	*forks = ft_calloc(nb_philo, sizeof(pthread_mutex_t));
+	*forks = ft_calloc(nb_philo, sizeof(t_mutex));
 	if (*forks == NULL)
 		return (1);
 	i = 0;

@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.c                                     :+:      :+:    :+:   */
+/*   data_philos.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/26 15:25:05 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/26 16:31:59 by majacque         ###   ########.fr       */
+/*   Created: 2022/01/26 20:21:01 by majacque          #+#    #+#             */
+/*   Updated: 2022/01/26 20:44:36 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philos.h"
 
-int	philos_init(pthread_t **philos, int nb_philo)
+int	data_philos_create(t_philo **data_philos, int nb_philo)
+{
+	*data_philos = ft_calloc(nb_philo, sizeof(t_philo));
+	if (*data_philos == NULL)
+		return (1);
+	return (0);
+}
+
+void	data_philos_clean(t_philo *data_philos, int index)
 {
 	int	i;
 
-	*philos = ft_calloc(nb_philo, sizeof(pthread_t));
-	if (*philos == NULL)
-		return (1);
 	i = 0;
-	while (i < nb_philo)
+	while (i < index)
 	{
-		if (pthread_create(&(*philos)[i], NULL, routine, arg_routine)) // TODO routine()
-		{
-			// TODO voir pour dire aux philos déjà créé qu'il faut sortir
-			free(*philos);
-			return (1);
-		}
+		pthread_mutex_destroy(&data_philos[i]);
 		i++;
 	}
-	return (0);
+	free(data_philos);
 }

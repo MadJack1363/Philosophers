@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 15:13:18 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/26 16:30:59 by majacque         ###   ########.fr       */
+/*   Updated: 2022/01/26 19:42:55 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 
 # include <pthread.h>
 
-int	forks_init(pthread_mutex_t **forks, int nb_philo);
-int	clean_mutex(pthread_mutex_t *forks, pthread_mutex_t tlk_stick, int index);
-int	clean_forks(pthread_mutex_t *forks, int index);
+typedef pthread_mutex_t	t_mutex;
+
+int	forks_init(t_mutex **forks, int nb_philo);
+int	clean_forks_stick(t_mutex *forks, t_mutex tlk_stick, int index);
+int	clean_forks(t_mutex *forks, int index);
 
 #endif

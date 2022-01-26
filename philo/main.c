@@ -6,11 +6,12 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 19:42:33 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/26 16:35:20 by majacque         ###   ########.fr       */
+/*   Updated: 2022/01/26 20:54:35 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include <stdio.h>
+#include "environment.h"
 
 static int	__error_usage(void)
 {
@@ -19,36 +20,38 @@ static int	__error_usage(void)
 	return (1);
 }
 
-// SECURE initialisations
 // ./philosophers nb_of_philo time_to_die time_to_eat time_to_sleep [nb_of_time_each_philo_must_eat]
 int	main(int argc, char **argv)
 {
-	t_inputs	inputs;
-	pthread_t	*philos; // tableau de philos
-	pthread_mutex_t	*forks; // tableau de fourchettes
-	pthread_mutex_t	tlk_stick;
+	t_environment	env;
 
 	/*Récupération des inputs*/
 	if (argc != 5 && argc != 6)
 		return (__error_usage());
-	if (get_inputs(&inputs, argc, argv))
+	if (get_inputs(&env.inputs, argc, argv))
 		return (1);
 
 	/*Initialisation des mutex*/
-	if (pthread_mutex_init(&tlk_stick, NULL))
+	if (pthread_mutex_init(&env.tlk_stick, NULL))
 		return (1);
-	if (forks_init(&forks, inputs.nb_philo))
+	if (forks_init(&env.forks, env.inputs.nb_philo))
 	{
-		pthread_mutex_destroy(&tlk_stick);
+		pthread_mutex_destroy(&env.tlk_stick);
 		return (1);
 	}
 
 	/*Initialisation des threads*/
-	if (philos_init(&philos, inputs.nb_philo))
+	if (data_philos_create(&env.data_philos, env.inputs.nb_philo))
 	{
-		clean_mutex(forks, tlk_stick, inputs.nb_philo);
+		clean_forks_stick(env.forks, env.tlk_stick, env.inputs.nb_philo);
+		return (1);
+	}
+	if (philos_init(&env))
+	{
+		clean_forks_stick(env.forks, env.tlk_stick, env.inputs.nb_philo);
 		return (1);
 	}
 
+	// TODO clean_env()
 	return (0);
 }
