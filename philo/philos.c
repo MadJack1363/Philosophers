@@ -21,11 +21,14 @@ static int	philo_born(t_environment *env, t_philo *data_philos, int index)
 		data_philos->r_fork = &env->forks[index + 1];
 	else
 		data_philos->r_fork = &env->forks[0];
-	if (pthread_mutex_init(&data_philos->access_philo, NULL))
-		return (1);
+	pthread_mutex_init(&data_philos->access_philo, NULL);
 	data_philos->state = S_WAIT;
 	data_philos->stop = false;
 	data_philos->last_eat = 0;
+	data_philos->tt_eat = env->inputs.tt_eat;
+	data_philos->tt_sleep = env->inputs.tt_sleep;
+	data_philos->tt_die = env->inputs.tt_die;
+	data_philos->nb_time_must_eat = env->inputs.nb_time_must_eat;
 	if (pthread_create(&env->philos[index], NULL, routine, data_philos)) // TODO routine()
 		return (1);
 	return (0);
@@ -35,17 +38,21 @@ int	philos_init(t_environment *env)
 {
 	int	i;
 
-	// TODO déplacer data_philo_create() ici
 	env->philos = ft_calloc(env->inputs.nb_philo, sizeof(pthread_t));
-	if (env->philos == NULL)
+	env->data_philos = ft_calloc(env->inputs.nb_philo, sizeof(t_philo));
+	if (env->philos == NULL || env->data_philos == NULL)
+	{
+		free(env->philos);
+		free(env->data_philos);
 		return (1);
+	}
 	i = 0;
 	while (i < env->inputs.nb_philo)
 	{
 		if (philo_born(env, env->data_philos, i))
 		{
 			philos_stop(&env->tlk_stick, &env->data_philos[i], i - 1);
-			// XXX usleep() pour laisser le temps au philos de quitter ?
+			philos_join(env->philos, i - 1);
 			data_philos_clean(env->data_philos, i - 1);
 			free(env->philos);
 			return (1);
@@ -55,11 +62,23 @@ int	philos_init(t_environment *env)
 	return (0);
 }
 
-int	philos_stop(t_mutex *tlk_stick, t_philo *data_philos, int index)
+void	philos_join(pthread_t *philos, int index)
 {
 	int	i;
 
-	pthread_mutex_lock(tlk_stick); // SECURE mutex_lock() ?
+	i = 0;
+	while (i < index)
+	{
+		pthread_join(philos[i], NULL);
+		i++;
+	}
+}
+
+void	philos_stop(t_mutex *tlk_stick, t_philo *data_philos, int index)
+{
+	int	i;
+
+	pthread_mutex_lock(tlk_stick);
 	i = 0;
 	while (i < index)
 	{
@@ -69,5 +88,4 @@ int	philos_stop(t_mutex *tlk_stick, t_philo *data_philos, int index)
 		i++;
 	}
 	pthread_mutex_unlock(tlk_stick);
-	return (0);
 }

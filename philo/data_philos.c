@@ -6,13 +6,13 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 20:21:01 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/26 20:44:36 by majacque         ###   ########.fr       */
+/*   Updated: 2022/01/27 16:06:48 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philos.h"
 
-int	data_philos_create(t_philo **data_philos, int nb_philo)
+int	data_philos_create(t_philo **data_philos, int nb_philo) // FIX useless
 {
 	*data_philos = ft_calloc(nb_philo, sizeof(t_philo));
 	if (*data_philos == NULL)

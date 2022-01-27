@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 19:42:33 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/26 20:54:35 by majacque         ###   ########.fr       */
+/*   Updated: 2022/01/27 19:36:30 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,14 @@ int	main(int argc, char **argv)
 	}
 
 	/*Initialisation des threads*/
-	if (data_philos_create(&env.data_philos, env.inputs.nb_philo))
-	{
-		clean_forks_stick(env.forks, env.tlk_stick, env.inputs.nb_philo);
-		return (1);
-	}
 	if (philos_init(&env))
 	{
 		clean_forks_stick(env.forks, env.tlk_stick, env.inputs.nb_philo);
 		return (1);
 	}
+
+	/*Join des threads*/
+	philos_join(env.philos, env.inputs.nb_philo);
 
 	// TODO clean_env()
 	return (0);
