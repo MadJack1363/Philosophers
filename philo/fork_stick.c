@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 15:11:45 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/28 10:45:14 by majacque         ###   ########.fr       */
+/*   Updated: 2022/01/28 14:19:13 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,12 @@ int	clean_forks(t_mutex *forks, int index)
 	return (ret);
 }
 
-int	clean_forks_stick(t_mutex *forks, t_mutex tlk_stick, int index)
+int	clean_forks_stick(t_mutex *forks, t_mutex *tlk_stick, int index)
 {
 	int	ret;
-	int	i;
 
 	ret = 0;
-	ret += pthread_mutex_destroy(&tlk_stick);
+	ret += pthread_mutex_destroy(tlk_stick);
 	ret += clean_forks(forks, index);
 	if (ret > 0)
 		ret = 1;
@@ -53,7 +52,7 @@ int	forks_init(t_mutex **forks, int nb_philo)
 	i = 0;
 	while (i < nb_philo)
 	{
-		if (phtread_mutex_init(&(*forks)[i], NULL))
+		if (pthread_mutex_init(&(*forks)[i], NULL))
 		{
 			clean_forks(*forks, i - 1);
 			return (1);

@@ -6,7 +6,7 @@
 #    By: majacque <majacque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/21 15:09:55 by majacque          #+#    #+#              #
-#    Updated: 2022/01/28 11:06:44 by majacque         ###   ########.fr        #
+#    Updated: 2022/01/28 14:08:53 by majacque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,19 +32,21 @@ OBJ_DIR				=	objs/
 #            SOURCE FILES            #
 ######################################
 SRC				=	\
-					data_philos.c	\
-					fork_stick.c	\
-					ft_atoi.c		\
-					ft_bzero.c		\
-					ft_calloc.c		\
-					ft_intlen.c		\
-					ft_isdigit.c	\
-					ft_iswspace.c	\
-					ft_itoa.c		\
-					ft_strcmp.c		\
-					inputs.c		\
-					main.c			\
-					philos.c		\
+					data_philos.c		\
+					fork_stick.c		\
+					ft_atoi.c			\
+					ft_bzero.c			\
+					ft_calloc.c			\
+					ft_intlen.c			\
+					ft_isdigit.c		\
+					ft_iswspace.c		\
+					ft_itoa.c			\
+					ft_strcmp.c			\
+					inputs.c			\
+					launch_simulation.c	\
+					main.c				\
+					philos.c			\
+					routine.c			\
 
 ######################################
 #            OBJECT FILES            #
@@ -69,7 +71,9 @@ endif
 #######################################
 #              VARIABLES              #
 #######################################
-VG_OPT = --tool=helgrind
+VG_OPT = --leak-check=full
+HG_OPT = --tool=helgrind
+DRD_OPT = --tool=drd
 
 #######################################
 #                RULES                #
@@ -98,4 +102,14 @@ valgrind:
 	@read -p "arguments: " arguments;	\
 	$@ ${VG_OPT} ./${NAME} $$arguments
 
-.PHONY: all clean fclean re fre valgrind
+helgrind:
+	${MAKE} ${NAME} DEBUG=1
+	@read -p "arguments: " arguments;	\
+	valgrind ${HG_OPT} ./${NAME} $$arguments
+
+drd:
+	${MAKE} ${NAME} DEBUG=1
+	@read -p "arguments: " arguments;	\
+	valgrind ${DRD_OPT} ./${NAME} $$arguments
+
+.PHONY: all clean fclean re fre valgrind helgrind drd

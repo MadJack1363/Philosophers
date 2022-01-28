@@ -6,64 +6,70 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:56:25 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/28 11:45:30 by majacque         ###   ########.fr       */
+/*   Updated: 2022/01/28 14:30:33 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "environment.h"
 
-void	__launch_even_philos(t_philo *data_philos, int nb_philo)
+static void	__launch_even_philos(t_philo *data_philos, int nb_philo)
 {
 	int	i;
+	t_philo	*data;
 
 	i = 0;
 	while (i < nb_philo)
 	{
-		pthread_mutex_lock(&data_philos[i].access_philo);
-		data_philos->state = S_THINK;
-		pthread_mutex_unlock(&data_philos[i].access_philo);
+		data = &data_philos[i];
+		pthread_mutex_lock(&data->access_philo);
+		data->state = S_THINK;
+		pthread_mutex_unlock(&data->access_philo);
 		i += 2;
 	}
 	usleep(500);
 	i = 1;
 	while (i < nb_philo)
 	{
-		pthread_mutex_lock(&data_philos[i].access_philo);
-		data_philos->state = S_THINK;
-		pthread_mutex_unlock(&data_philos[i].access_philo);
+		data = &data_philos[i];
+		pthread_mutex_lock(&data->access_philo);
+		data->state = S_THINK;
+		pthread_mutex_unlock(&data->access_philo);
 		i += 2;
 	}
 }
 
-void	__launch_odd_philos(t_philo *data_philos, int nb_philo)
+static void	__launch_odd_philos(t_philo *data_philos, int nb_philo)
 {
 	int	i;
+	t_philo	*data;
 
 	i = 0;
 	while (i < nb_philo)
 	{
-		pthread_mutex_lock(&data_philos[i].access_philo);
-		data_philos->state = S_THINK;
-		pthread_mutex_unlock(&data_philos[i].access_philo);
+		data = &data_philos[i];
+		pthread_mutex_lock(&data->access_philo);
+		data->state = S_THINK;
+		pthread_mutex_unlock(&data->access_philo);
 		i += 3;
 	}
 	usleep(500);
 	i = 1;
 	while (i < nb_philo)
 	{
-		pthread_mutex_lock(&data_philos[i].access_philo);
-		data_philos->state = S_THINK;
-		pthread_mutex_unlock(&data_philos[i].access_philo);
+		data = &data_philos[i];
+		pthread_mutex_lock(&data->access_philo);
+		data->state = S_THINK;
+		pthread_mutex_unlock(&data->access_philo);
 		i += 3;
 	}
 	usleep(500);
-	i = 3;
+	i = 2;
 	while (i < nb_philo)
 	{
-		pthread_mutex_lock(&data_philos[i].access_philo);
-		data_philos->state = S_THINK;
-		pthread_mutex_unlock(&data_philos[i].access_philo);
+		data = &data_philos[i];
+		pthread_mutex_lock(&data->access_philo);
+		data->state = S_THINK;
+		pthread_mutex_unlock(&data->access_philo);
 		i += 3;
 	}
 }

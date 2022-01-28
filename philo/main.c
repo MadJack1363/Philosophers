@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 19:42:33 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/28 11:45:18 by majacque         ###   ########.fr       */
+/*   Updated: 2022/01/28 14:20:00 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ static int	__error_usage(void)
 
 static void	__clean_env(t_environment *env)
 {
-	clean_forks_stick(env->forks, env->tlk_stick, env->inputs.nb_philo);
+	clean_forks_stick(env->forks, &env->tlk_stick, env->inputs.nb_philo);
 	data_philos_clean(env->data_philos, env->inputs.nb_philo);
+	free(env->philos);
 }
 
 // ./philosophers nb_of_philo time_to_die time_to_eat time_to_sleep [nb_of_time_each_philo_must_eat]
@@ -51,7 +52,7 @@ int	main(int argc, char **argv)
 	/*Initialisation des threads*/
 	if (philos_init(&env))
 	{
-		clean_forks_stick(env.forks, env.tlk_stick, env.inputs.nb_philo);
+		clean_forks_stick(env.forks, &env.tlk_stick, env.inputs.nb_philo);
 		return (1);
 	}
 

@@ -1,25 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philos.h                                     :+:      :+:    :+:   */
+/*   philos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 14:43:12 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/26 19:08:19 by majacque         ###   ########.fr       */
+/*   Updated: 2022/01/28 13:26:36 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// FIX useless
 #ifndef PHILOS_H
 # define PHILOS_H
 
 # include <pthread.h>
 # include <stdbool.h>
+# include <stdlib.h>
 
 # include "environment.h"
 
-typedef struct s_philo		t_philo;
 typedef enum e_state		t_state;
+
+enum	e_state
+{
+	S_WAIT,
+	S_EAT,
+	S_SLEEP,
+	S_THINK,
+	S_DEAD
+};
+
+typedef struct s_philo		t_philo;
 
 struct s_philo
 {
@@ -35,15 +47,6 @@ struct s_philo
 	int		tt_sleep;
 	int		tt_die;
 	int		nb_time_must_eat;
-};
-
-enum	e_state
-{
-	S_WAIT,
-	S_EAT,
-	S_SLEEP,
-	S_THINK,
-	S_DEAD
 };
 
 int		philos_init(t_environment *env);
