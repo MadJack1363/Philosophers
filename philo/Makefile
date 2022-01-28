@@ -6,7 +6,7 @@
 #    By: majacque <majacque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/21 15:09:55 by majacque          #+#    #+#              #
-#    Updated: 2022/01/28 14:08:53 by majacque         ###   ########.fr        #
+#    Updated: 2022/01/28 17:41:33 by majacque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ OBJ_DIR				=	objs/
 #            SOURCE FILES            #
 ######################################
 SRC				=	\
-					data_philos.c		\
+					data_philo.c		\
 					fork_stick.c		\
 					ft_atoi.c			\
 					ft_bzero.c			\
@@ -43,7 +43,7 @@ SRC				=	\
 					ft_itoa.c			\
 					ft_strcmp.c			\
 					inputs.c			\
-					launch_simulation.c	\
+					run_simulation.c	\
 					main.c				\
 					philos.c			\
 					routine.c			\
@@ -65,7 +65,7 @@ CFLAGS			+=	-MMD -MP -pthread
 LDFLAGS			= -pthread
 
 ifeq (${DEBUG}, 1)
-	CFLAGS		+=	-g
+	CFLAGS		+=	-g3
 endif
 
 #######################################

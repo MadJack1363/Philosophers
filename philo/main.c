@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 19:42:33 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/28 14:20:00 by majacque         ###   ########.fr       */
+/*   Updated: 2022/01/28 17:42:58 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	__error_usage(void)
 static void	__clean_env(t_environment *env)
 {
 	clean_forks_stick(env->forks, &env->tlk_stick, env->inputs.nb_philo);
-	data_philos_clean(env->data_philos, env->inputs.nb_philo);
+	data_philo_clean(env->data_philo, env->inputs.nb_philo);
 	free(env->philos);
 }
 
@@ -32,7 +32,6 @@ int	main(int argc, char **argv)
 {
 	t_environment	env;
 
-	/*Récupération des inputs*/
 	if (argc != 5 && argc != 6)
 		return (__error_usage());
 	if (get_inputs(&env.inputs, argc, argv))
@@ -40,7 +39,6 @@ int	main(int argc, char **argv)
 
 	// TODO exception pour 1 philo tout seul
 
-	/*Initialisation des mutex*/
 	if (pthread_mutex_init(&env.tlk_stick, NULL))
 		return (1);
 	if (forks_init(&env.forks, env.inputs.nb_philo))
@@ -48,21 +46,12 @@ int	main(int argc, char **argv)
 		pthread_mutex_destroy(&env.tlk_stick);
 		return (1);
 	}
-
-	/*Initialisation des threads*/
 	if (philos_init(&env))
 	{
 		clean_forks_stick(env.forks, &env.tlk_stick, env.inputs.nb_philo);
 		return (1);
 	}
-
-	/*Lancement de la simulation*/
-	launch_simulation(env.data_philos, env.inputs.nb_philo);
-
-	/*Join des threads*/
-	philos_join(env.philos, env.inputs.nb_philo);
-
-	/*Clean des ressources*/
+	run_simulation(&env, env.inputs.nb_philo);
 	__clean_env(&env);
 	return (0);
 }

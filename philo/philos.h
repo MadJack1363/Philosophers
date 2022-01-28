@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 14:43:12 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/28 13:26:36 by majacque         ###   ########.fr       */
+/*   Updated: 2022/01/28 17:41:33 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ struct s_philo
 int		philos_init(t_environment *env);
 
 void	philos_join(pthread_t *philos, int index);
-void	philos_stop(t_mutex *tlk_stick, t_philo *data_philos, int index);
-void	data_philos_clean(t_philo *data_philos, int index);
+void	philos_stop(t_mutex *tlk_stick, t_philo *data_philo, int index);
+void	data_philo_clean(t_philo *data_philo, int index);
 
 #endif
