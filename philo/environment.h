@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 18:12:04 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/28 10:44:51 by majacque         ###   ########.fr       */
+/*   Updated: 2022/01/28 11:45:36 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,7 @@ struct s_environment
 	t_philo		*data_philos;
 	pthread_t	*philos;
 };
+
+void	launch_simulation(t_philo *data_philos, int nb_philo);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 19:42:33 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/28 10:59:26 by majacque         ###   ########.fr       */
+/*   Updated: 2022/01/28 11:45:18 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	main(int argc, char **argv)
 	}
 
 	/*Lancement de la simulation*/
-	// TODO lancer la simulation
+	launch_simulation(env.data_philos, env.inputs.nb_philo);
 
 	/*Join des threads*/
 	philos_join(env.philos, env.inputs.nb_philo);
