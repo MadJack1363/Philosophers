@@ -6,15 +6,15 @@
 #    By: majacque <majacque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/21 15:09:55 by majacque          #+#    #+#              #
-#    Updated: 2022/01/24 18:16:38 by majacque         ###   ########.fr        #
+#    Updated: 2022/01/28 11:06:44 by majacque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ######################################
 #              COMMANDS              #
 ######################################
-CC					=	clang -c -o
-LINK				=	clang -o
+CC					=	cc -c -o
+LINK				=	cc -o
 MKDIR				=	mkdir -p
 RM					=	rm -rf
 
@@ -32,6 +32,8 @@ OBJ_DIR				=	objs/
 #            SOURCE FILES            #
 ######################################
 SRC				=	\
+					data_philos.c	\
+					fork_stick.c	\
 					ft_atoi.c		\
 					ft_bzero.c		\
 					ft_calloc.c		\
@@ -42,6 +44,7 @@ SRC				=	\
 					ft_strcmp.c		\
 					inputs.c		\
 					main.c			\
+					philos.c		\
 
 ######################################
 #            OBJECT FILES            #
@@ -83,9 +86,12 @@ ${OBJ_DIR}%.o: %.c
 	${CC} $@ ${CFLAGS} $<
 
 clean:
+	${RM} ${OBJ_DIR}
+
+fclean:
 	${RM} ${OBJ_DIR} ${NAME}
 
-re: clean all
+re: fclean all
 
 valgrind:
 	${MAKE} ${NAME} DEBUG=1

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philos.c                                     :+:      :+:    :+:   */
+/*   philos.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 15:25:05 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/26 19:07:45 by majacque         ###   ########.fr       */
+/*   Updated: 2022/01/28 10:54:38 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,18 +62,6 @@ int	philos_init(t_environment *env)
 	return (0);
 }
 
-void	philos_join(pthread_t *philos, int index)
-{
-	int	i;
-
-	i = 0;
-	while (i < index)
-	{
-		pthread_join(philos[i], NULL);
-		i++;
-	}
-}
-
 void	philos_stop(t_mutex *tlk_stick, t_philo *data_philos, int index)
 {
 	int	i;
@@ -88,4 +76,16 @@ void	philos_stop(t_mutex *tlk_stick, t_philo *data_philos, int index)
 		i++;
 	}
 	pthread_mutex_unlock(tlk_stick);
+}
+
+void	philos_join(pthread_t *philos, int index)
+{
+	int	i;
+
+	i = 0;
+	while (i < index)
+	{
+		pthread_join(philos[i], NULL);
+		i++;
+	}
 }

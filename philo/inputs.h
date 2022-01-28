@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 15:16:27 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/26 15:22:44 by majacque         ###   ########.fr       */
+/*   Updated: 2022/01/28 10:51:27 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stddef.h>
 // RLIMIT_NPROC
-#include <sys/resource.h>
+# include <sys/resource.h>
 
 typedef struct s_inputs	t_inputs;
 

@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 19:42:33 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/27 19:36:30 by majacque         ###   ########.fr       */
+/*   Updated: 2022/01/28 10:59:26 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ static int	__error_usage(void)
 	return (1);
 }
 
+static void	__clean_env(t_environment *env)
+{
+	clean_forks_stick(env->forks, env->tlk_stick, env->inputs.nb_philo);
+	data_philos_clean(env->data_philos, env->inputs.nb_philo);
+}
+
 // ./philosophers nb_of_philo time_to_die time_to_eat time_to_sleep [nb_of_time_each_philo_must_eat]
 int	main(int argc, char **argv)
 {
@@ -30,6 +36,8 @@ int	main(int argc, char **argv)
 		return (__error_usage());
 	if (get_inputs(&env.inputs, argc, argv))
 		return (1);
+
+	// TODO exception pour 1 philo tout seul
 
 	/*Initialisation des mutex*/
 	if (pthread_mutex_init(&env.tlk_stick, NULL))
@@ -47,9 +55,13 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 
+	/*Lancement de la simulation*/
+	// TODO lancer la simulation
+
 	/*Join des threads*/
 	philos_join(env.philos, env.inputs.nb_philo);
 
-	// TODO clean_env()
+	/*Clean des ressources*/
+	__clean_env(&env);
 	return (0);
 }

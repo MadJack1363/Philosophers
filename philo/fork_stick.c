@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mutex.c                                            :+:      :+:    :+:   */
+/*   fork_stick.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 15:11:45 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/26 20:41:08 by majacque         ###   ########.fr       */
+/*   Updated: 2022/01/28 10:45:14 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// TODO renommer mutex.c --> forks_stick.c
-#include "mutex.h"
+#include "fork_stick.h"
 
 int	clean_forks(t_mutex *forks, int index)
 {

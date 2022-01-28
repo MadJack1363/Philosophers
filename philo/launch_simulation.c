@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environment.h                                      :+:      :+:    :+:   */
+/*   launch_simulation.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/26 18:12:04 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/28 10:44:51 by majacque         ###   ########.fr       */
+/*   Created: 2022/01/28 10:56:25 by majacque          #+#    #+#             */
+/*   Updated: 2022/01/28 11:03:56 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENVIRONMENT_H
-# define ENVIRONMENT_H
+#include "environment.h"
 
-# include "fork_stick.h"
-# include "inputs.h"
-# include "philos.h"
-
-typedef struct s_environment	t_environment;
-
-struct s_environment
+int	launch_simulation(t_philo *data_philos, int nb_philo)
 {
-	t_inputs	inputs;
-	t_mutex		tlk_stick;
-	t_mutex		*forks;
-	t_philo		*data_philos;
-	pthread_t	*philos;
-};
-
-#endif
+	if (nb_philo % 2 == 0)
+	{
+		__launch_even_philos(data_philos, nb_philo); // TODO launch_even_philos()
+	}
+	else
+	{
+		__launch_odd_philos(data_philos, nb_philo); // TODO launch_odd_philos()
+	}
+	return (0);
+}
+// odd = impaire
+// even = paire

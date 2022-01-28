@@ -19,7 +19,7 @@
 # include "environment.h"
 
 typedef struct s_philo		t_philo;
-typedef enum e_state	t_state;
+typedef enum e_state		t_state;
 
 struct s_philo
 {
@@ -47,7 +47,6 @@ enum	e_state
 };
 
 int		philos_init(t_environment *env);
-int		data_philos_create(t_philo **data_philos, int nb_philo);
 
 void	philos_join(pthread_t *philos, int index);
 void	philos_stop(t_mutex *tlk_stick, t_philo *data_philos, int index);
