@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 18:12:04 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/28 17:41:33 by majacque         ###   ########.fr       */
+/*   Updated: 2022/01/31 18:37:56 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdbool.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/time.h>
 
 # include "fork_stick.h"
 # include "inputs.h"
@@ -47,6 +48,7 @@ struct s_philo
 	int		tt_sleep;
 	int		tt_die;
 	int		nb_time_must_eat;
+	long	time_stamp_start;
 };
 
 typedef struct s_environment	t_environment;
@@ -58,9 +60,12 @@ struct s_environment
 	t_mutex		*forks;
 	t_philo		*data_philo;
 	pthread_t	*philos;
+	long		time_stamp_start;
 };
 
 int		philos_init(t_environment *env);
+
+long	get_time_stamp(void);
 
 void	philos_join(pthread_t *philos, int index);
 void	philos_stop(t_mutex *tlk_stick, t_philo *data_philo, int index);

@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 20:21:01 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/28 17:41:49 by majacque         ###   ########.fr       */
+/*   Updated: 2022/01/31 18:16:25 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	data_philo_init(t_environment *env)
 		data->tt_sleep = env->inputs.tt_sleep;
 		data->tt_die = env->inputs.tt_die;
 		data->nb_time_must_eat = env->inputs.nb_time_must_eat;
+		data->time_stamp_start = env->time_stamp_start;
 		i++;
 	}
 }

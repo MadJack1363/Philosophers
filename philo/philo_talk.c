@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   inputs.h                                           :+:      :+:    :+:   */
+/*   philo_talk.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/26 15:16:27 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/31 18:37:44 by majacque         ###   ########.fr       */
+/*   Created: 2022/01/31 19:36:56 by majacque          #+#    #+#             */
+/*   Updated: 2022/01/31 20:13:36 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INPUTS_H
-# define INPUTS_H
+#include "routine.h"
 
-# include <stddef.h>
-# include <stdio.h>
-// RLIMIT_NPROC
-# include <sys/resource.h>
-
-# include "libft.h"
-
-typedef struct s_inputs	t_inputs;
-
-struct s_inputs
+void	philo_talk(t_philo *philo, char *str)
 {
-	int	nb_philo;
-	int	tt_die;
-	int	tt_eat;
-	int	tt_sleep;
-	int	nb_time_must_eat;
-};
+	long	time_stamp;
 
-int		get_inputs(t_inputs *inputs, int argc, char **argv);
-void	print_inputs(t_inputs *inputs);
-
-#endif
+	pthread_mutex_lock(&philo->access_philo);
+	pthread_mutex_lock(philo->tlk_stick);
+	time_stamp = get_time_stamp() - philo->time_stamp_start;
+	if (philo->stop == false)
+		printf("%ld %d %s\n", time_stamp, philo->id, str);
+	pthread_mutex_unlock(philo->tlk_stick);
+	pthread_mutex_unlock(&philo->access_philo);
+}

@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 19:42:33 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/28 17:42:58 by majacque         ###   ########.fr       */
+/*   Updated: 2022/01/31 16:17:14 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	run_simulation(&env, env.inputs.nb_philo);
+	// TODO check si quelqu'un est S_DEAD et stop tout le monde
 	__clean_env(&env);
 	return (0);
 }

@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   inputs.h                                           :+:      :+:    :+:   */
+/*   philo_wait.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/26 15:16:27 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/31 18:37:44 by majacque         ###   ########.fr       */
+/*   Created: 2022/01/31 19:46:18 by majacque          #+#    #+#             */
+/*   Updated: 2022/01/31 20:25:53 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INPUTS_H
-# define INPUTS_H
+#include "routine.h"
 
-# include <stddef.h>
-# include <stdio.h>
-// RLIMIT_NPROC
-# include <sys/resource.h>
-
-# include "libft.h"
-
-typedef struct s_inputs	t_inputs;
-
-struct s_inputs
+int	philo_wait(t_philo *philo, t_routine *data, int tt_wait)
 {
-	int	nb_philo;
-	int	tt_die;
-	int	tt_eat;
-	int	tt_sleep;
-	int	nb_time_must_eat;
-};
+	long	time_stamp;
+	long	new_ts;
 
-int		get_inputs(t_inputs *inputs, int argc, char **argv);
-void	print_inputs(t_inputs *inputs);
-
-#endif
+	time_stamp = get_time_stamp() - data->time_stamp_start;
+	new_ts = get_time_stamp() - data->time_stamp_start;
+	while (new_ts - time_stamp < tt_wait)
+	{
+		if (is_stop(philo))
+			return (1);
+		if (is_starving(data))
+			return (philo_die(philo));
+		usleep(1000);
+	}
+	return (0);
+}

@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 15:25:05 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/28 17:41:33 by majacque         ###   ########.fr       */
+/*   Updated: 2022/01/31 20:48:18 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@ int	philos_init(t_environment *env)
 {
 	int	i;
 
-	env->philos = ft_calloc(env->inputs.nb_philo, sizeof(pthread_t));
 	env->data_philo = ft_calloc(env->inputs.nb_philo, sizeof(t_philo));
+	env->philos = ft_calloc(env->inputs.nb_philo, sizeof(pthread_t));
 	if (env->philos == NULL || env->data_philo == NULL)
 	{
 		free(env->philos);
 		free(env->data_philo);
 		return (1);
 	}
+	env->time_stamp_start = get_time_stamp();
 	data_philo_init(env);
 	i = 0;
 	while (i < env->inputs.nb_philo)
