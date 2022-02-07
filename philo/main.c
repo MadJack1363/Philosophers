@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 19:42:33 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/31 16:17:14 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/01 19:54:37 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ int	main(int argc, char **argv)
 		return (__error_usage());
 	if (get_inputs(&env.inputs, argc, argv))
 		return (1);
-
-	// TODO exception pour 1 philo tout seul
-
 	if (pthread_mutex_init(&env.tlk_stick, NULL))
 		return (1);
 	if (forks_init(&env.forks, env.inputs.nb_philo))
@@ -52,7 +49,6 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	run_simulation(&env, env.inputs.nb_philo);
-	// TODO check si quelqu'un est S_DEAD et stop tout le monde
 	__clean_env(&env);
 	return (0);
 }

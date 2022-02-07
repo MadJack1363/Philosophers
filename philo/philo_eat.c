@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 18:45:44 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/31 20:41:36 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/01 17:56:11 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,7 @@ int	philo_eat(t_philo *philo, t_routine *data)
 	int	ret;
 
 	if (is_alone(philo))
-	{
-		pthread_mutex_lock(&philo->access_philo);
-		philo->state = S_WAIT;
-		pthread_mutex_unlock(&philo->access_philo);
-		return (0);
-	}
+		return (philo_set_state(philo, S_WAIT, 0));
 	if (__take_rfork(philo, data))
 		return (1);
 	usleep(200);
@@ -80,11 +75,14 @@ int	philo_eat(t_philo *philo, t_routine *data)
 		return (1);
 	}
 	data->last_eat = get_time_stamp() - data->time_stamp_start;
+	pthread_mutex_lock(&philo->access_philo);
+	philo->nb_time_eat += 1;
+	pthread_mutex_unlock(&philo->access_philo);
 	philo_talk(philo, "is eating");
 	ret = 0;
 	if (philo_wait(philo, data, data->tt_eat))
 		ret = 1;
 	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(philo->l_fork);
-	return (ret);
+	return (philo_set_state(philo, S_SLEEP, ret));
 }

@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 16:28:37 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/31 20:36:48 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/01 17:51:55 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ struct s_routine
 	int		tt_sleep;
 	int		tt_think;
 	int		tt_die;
-	int		nb_time_must_eat;
 	long	time_stamp_start;
 	long	last_eat;
 };
@@ -34,7 +33,10 @@ bool	is_state(t_philo *philo, t_state state);
 bool	is_starving(t_routine *data);
 bool	is_alone(t_philo *philo);
 
+int		philo_set_state(t_philo *philo, t_state new_state, int ret);
 int		philo_wait(t_philo *philo, t_routine *data, int tt_wait);
+int		philo_eat(t_philo *philo, t_routine *data);
+int		philo_sleep(t_philo *philo, t_routine *data);
 int		philo_think(t_philo *philo, t_routine *data);
 int		philo_die(t_philo *philo);
 

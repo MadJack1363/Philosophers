@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 11:48:00 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/31 20:47:51 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/01 17:58:31 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,17 @@ static void	__get_data(t_philo *philo, t_routine *data)
 	data->tt_eat = philo->tt_eat;
 	data->tt_sleep = philo->tt_sleep;
 	data->tt_die = philo->tt_die;
-	data->nb_time_must_eat = philo->nb_time_must_eat;
 	data->time_stamp_start = philo->time_stamp_start;
 	data->tt_think = 0;
 	data->last_eat = 0;
 	pthread_mutex_unlock(&philo->access_philo);
 }
 
-/* static void __print_data(t_mutex *tlk_stick, t_routine *data)
-{
-	pthread_mutex_lock(tlk_stick);
-	printf("I am thread number %d\n", data->id);
-	printf("tt_eat = %d, ", data->tt_eat);
-	printf("tt_sleep = %d, ", data->tt_sleep);
-	printf("tt_think = %d, ", data->tt_think);
-	printf("tt_die = %d, ", data->tt_die);
-	printf("nb_time_must_eat = %d, ", data->nb_time_must_eat);
-	printf("last_eat = %ld\n", data->last_eat);
-	pthread_mutex_unlock(tlk_stick);
-} */
-
 static int	__wait(t_philo *philo)
 {
 	bool	stop;
 
-	while (__is_wait(philo))
+	while (is_state(philo, S_WAIT))
 	{
 		pthread_mutex_lock(&philo->access_philo);
 		stop = philo->stop;
@@ -55,7 +41,7 @@ static int	__wait(t_philo *philo)
 	return (0);
 }
 
-void	*routine(void	*arg) // TODO routine()
+void	*routine(void	*arg)
 {
 	t_philo		*philo;
 	t_routine	data;
@@ -67,15 +53,21 @@ void	*routine(void	*arg) // TODO routine()
 	while (!is_stop(philo))
 	{
 		if (is_state(philo, S_THINK))
+		{
 			if (philo_think(philo, &data) && !is_state(philo, S_DEAD))
-				return (NULL);
+				break ;
+		}
 		else if (is_state(philo, S_EAT))
+		{
 			if (philo_eat(philo, &data) && !is_state(philo, S_DEAD))
-				return (NULL); // TODO philo_eat()
+				break ;
+		}
 		else if (is_state(philo, S_SLEEP))
+		{
 			if (philo_sleep(philo, &data) && !is_state(philo, S_DEAD))
-				return (NULL); // TODO philo_sleep()
-		if (is_starving(&data))
+				break ;
+		}
+		if (!is_state(philo, S_DEAD) && is_starving(&data))
 			philo_die(philo);
 		usleep(500);
 	}

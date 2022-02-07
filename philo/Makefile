@@ -6,7 +6,7 @@
 #    By: majacque <majacque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/21 15:09:55 by majacque          #+#    #+#              #
-#    Updated: 2022/01/28 17:41:33 by majacque         ###   ########.fr        #
+#    Updated: 2022/02/01 16:34:21 by majacque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,10 +43,19 @@ SRC				=	\
 					ft_itoa.c			\
 					ft_strcmp.c			\
 					inputs.c			\
-					run_simulation.c	\
+					is_state.c			\
 					main.c				\
+					philo_die.c			\
+					philo_eat.c			\
+					philo_set_state.c	\
+					philo_sleep.c		\
+					philo_talk.c		\
+					philo_think.c		\
+					philo_wait.c		\
 					philos.c			\
 					routine.c			\
+					run_simulation.c	\
+					time.c				\
 
 ######################################
 #            OBJECT FILES            #
