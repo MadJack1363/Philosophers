@@ -6,7 +6,7 @@
 #    By: majacque <majacque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/21 15:09:55 by majacque          #+#    #+#              #
-#    Updated: 2022/02/01 16:34:21 by majacque         ###   ########.fr        #
+#    Updated: 2022/02/09 03:10:37 by majacque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,12 +77,17 @@ ifeq (${DEBUG}, 1)
 	CFLAGS		+=	-g3
 endif
 
+ifeq (${THREAD}, 1)
+	CFLAGS		+= -g3 -fsanitize=thread
+	LDFLAGS		+= -ltsan
+endif
+
 #######################################
 #              VARIABLES              #
 #######################################
-VG_OPT = --leak-check=full
-HG_OPT = --tool=helgrind
-DRD_OPT = --tool=drd
+VG_OPT = --leak-check=full --log-file="output"
+HG_OPT = --log-file="output" --tool=helgrind
+DRD_OPT = --log-file="output" --tool=drd
 
 #######################################
 #                RULES                #

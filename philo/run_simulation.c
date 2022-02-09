@@ -6,13 +6,13 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:56:25 by majacque          #+#    #+#             */
-/*   Updated: 2022/02/01 20:11:20 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/09 02:15:47 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "environment.h"
 
-static void	__run_even_philos(t_philo *data_philo, int nb_philo)
+static void	__run_even_philos(t_environment *env, int nb_philo)
 {
 	int		i;
 	t_philo	*data;
@@ -20,19 +20,19 @@ static void	__run_even_philos(t_philo *data_philo, int nb_philo)
 	i = 0;
 	while (i < nb_philo)
 	{
-		data = &data_philo[i];
+		data = &env->data_philo[i];
 		pthread_mutex_lock(&data->access_philo);
-		data->state = S_THINK;
+		data->state = S_EAT;
 		pthread_mutex_unlock(&data->access_philo);
 		i += 2;
 	}
-	usleep(1000);
+	usleep(env->inputs.tt_eat / 2 * 1000);
 	i = 1;
 	while (i < nb_philo)
 	{
-		data = &data_philo[i];
+		data = &env->data_philo[i];
 		pthread_mutex_lock(&data->access_philo);
-		data->state = S_THINK;
+		data->state = S_EAT;
 		pthread_mutex_unlock(&data->access_philo);
 		i += 2;
 	}
@@ -93,7 +93,7 @@ void	run_simulation(t_environment *env, int nb_philo)
 	t_philo	*data;
 
 	if (nb_philo % 2 == 0)
-		__run_even_philos(env->data_philo, nb_philo);
+		__run_even_philos(env, nb_philo);
 	else
 		__run_odd_philos(env->data_philo, nb_philo);
 	i = 0;

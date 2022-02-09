@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 11:48:00 by majacque          #+#    #+#             */
-/*   Updated: 2022/02/01 17:58:31 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/09 02:29:55 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	__get_data(t_philo *philo, t_routine *data)
 {
 	pthread_mutex_lock(&philo->access_philo);
+	data->right_hand = philo->right_hand;
 	data->id = philo->id;
 	data->tt_eat = philo->tt_eat;
 	data->tt_sleep = philo->tt_sleep;

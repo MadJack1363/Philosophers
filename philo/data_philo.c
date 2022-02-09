@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 20:21:01 by majacque          #+#    #+#             */
-/*   Updated: 2022/02/01 17:54:50 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/09 05:33:08 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	data_philo_init(t_environment *env)
 		data->id = i + 1;
 		data->tlk_stick = &env->tlk_stick;
 		data->l_fork = &env->forks[i];
-		if (i < env->inputs.nb_philo)
+		if (i < env->inputs.nb_philo - 1)
 			data->r_fork = &env->forks[i + 1];
 		else
 			data->r_fork = &env->forks[0];
