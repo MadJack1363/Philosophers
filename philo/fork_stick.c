@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 15:11:45 by majacque          #+#    #+#             */
-/*   Updated: 2022/02/09 03:13:38 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/10 09:23:22 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	clean_forks_stick(t_mutex *forks, t_mutex *tlk_stick, int index)
 int	forks_init(t_mutex **forks, int nb_philo)
 {
 	int	i;
-	t_mutex	tmp;
 
 	*forks = ft_calloc(nb_philo, sizeof(t_mutex));
 	if (*forks == NULL)
@@ -53,8 +52,7 @@ int	forks_init(t_mutex **forks, int nb_philo)
 	i = 0;
 	while (i < nb_philo)
 	{
-		tmp = *(forks)[i];
-		if (pthread_mutex_init(&tmp, NULL))
+		if (pthread_mutex_init(&(*forks)[i], NULL))
 		{
 			clean_forks(*forks, i - 1);
 			return (1);

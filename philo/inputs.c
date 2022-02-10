@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 21:01:49 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/28 12:12:08 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/10 10:45:31 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	get_inputs(t_inputs *inputs, int argc, char **argv)
 	if (__check_input(argv[1]) || __check_input(argv[2])
 		|| __check_input(argv[3]) || __check_input(argv[4]))
 		return (__error("Arguments can be only positive integers"));
-	if (inputs->nb_philo > RLIMIT_NPROC)
+	if (inputs->nb_philo > 200)
 		return (__error("Too much philosophers !!"));
 	if (argc == 6)
 	{

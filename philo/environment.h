@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 18:12:04 by majacque          #+#    #+#             */
-/*   Updated: 2022/02/09 05:32:45 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/10 11:25:58 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,14 @@ struct s_philo
 	t_mutex	access_philo;
 	t_state	state;
 	bool	stop;
+	bool	full;
 	int		tt_eat;
 	int		tt_sleep;
+	int		tt_think;
 	int		tt_die;
 	int		nb_time_eat;
 	long	time_stamp_start;
+	long	time_stamp_die;
 };
 
 typedef struct s_environment	t_environment;

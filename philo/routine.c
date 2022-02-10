@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 11:48:00 by majacque          #+#    #+#             */
-/*   Updated: 2022/02/09 02:29:55 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/10 09:19:21 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,12 @@
 static void	__get_data(t_philo *philo, t_routine *data)
 {
 	pthread_mutex_lock(&philo->access_philo);
-	data->right_hand = philo->right_hand;
 	data->id = philo->id;
 	data->tt_eat = philo->tt_eat;
 	data->tt_sleep = philo->tt_sleep;
 	data->tt_die = philo->tt_die;
 	data->time_stamp_start = philo->time_stamp_start;
-	data->tt_think = 0;
+	data->tt_think = philo->tt_think;
 	data->last_eat = 0;
 	pthread_mutex_unlock(&philo->access_philo);
 }
@@ -42,6 +41,28 @@ static int	__wait(t_philo *philo)
 	return (0);
 }
 
+static int	__action(t_philo *philo, t_routine *data)
+{
+	if (is_state(philo, S_THINK))
+	{
+		if (philo_think(philo, data) && !is_state(philo, S_DEAD))
+			return (1);
+	}
+	else if (is_state(philo, S_EAT))
+	{
+		if (philo_eat(philo, data) && !is_state(philo, S_DEAD))
+			return (1);
+	}
+	else if (is_state(philo, S_SLEEP))
+	{
+		if (philo_sleep(philo, data) && !is_state(philo, S_DEAD))
+			return (1);
+	}
+	if (!is_state(philo, S_DEAD) && is_starving(data))
+		philo_die(philo);
+	return (0);
+}
+
 void	*routine(void	*arg)
 {
 	t_philo		*philo;
@@ -53,23 +74,8 @@ void	*routine(void	*arg)
 		return (NULL);
 	while (!is_stop(philo))
 	{
-		if (is_state(philo, S_THINK))
-		{
-			if (philo_think(philo, &data) && !is_state(philo, S_DEAD))
-				break ;
-		}
-		else if (is_state(philo, S_EAT))
-		{
-			if (philo_eat(philo, &data) && !is_state(philo, S_DEAD))
-				break ;
-		}
-		else if (is_state(philo, S_SLEEP))
-		{
-			if (philo_sleep(philo, &data) && !is_state(philo, S_DEAD))
-				break ;
-		}
-		if (!is_state(philo, S_DEAD) && is_starving(&data))
-			philo_die(philo);
+		if (__action(philo, &data))
+			break ;
 		usleep(500);
 	}
 	return (NULL);

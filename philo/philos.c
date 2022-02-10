@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 15:25:05 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/31 20:48:18 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/10 09:22:58 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	philos_init(t_environment *env)
 	}
 	env->time_stamp_start = get_time_stamp();
 	data_philo_init(env);
-	i = 0;
-	while (i < env->inputs.nb_philo)
+	i = -1;
+	while (++i < env->inputs.nb_philo)
 	{
 		if (pthread_create(&env->philos[i], NULL, routine, &env->data_philo[i]))
 		{
@@ -37,7 +37,6 @@ int	philos_init(t_environment *env)
 			free(env->philos);
 			return (1);
 		}
-		i++;
 	}
 	return (0);
 }

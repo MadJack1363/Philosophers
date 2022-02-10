@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 20:24:11 by majacque          #+#    #+#             */
-/*   Updated: 2022/01/31 20:24:55 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/10 11:26:50 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	philo_die(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->access_philo);
 	philo->state = S_DEAD;
+	philo->time_stamp_die = get_time_stamp() - philo->time_stamp_start;
 	pthread_mutex_unlock(&philo->access_philo);
-	philo_talk(philo, "died");
 	return (1);
 }
