@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:56:25 by majacque          #+#    #+#             */
-/*   Updated: 2022/02/10 14:21:06 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/14 10:00:55 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ static t_philo	*__check_philo_state(t_environment *env, int nb_philo)
 	return (data);
 }
 
-// TODO droitier gaucher pour éviter un deadlock si j'ai un nombre impair de philo et que helgrind ralentit trop run_simulation()
 void	run_simulation(t_environment *env, int nb_philo)
 {
 	t_philo	*philo;

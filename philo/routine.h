@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 16:28:37 by majacque          #+#    #+#             */
-/*   Updated: 2022/02/09 05:32:54 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/14 09:37:55 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ struct s_routine
 	int		tt_die;
 	long	time_stamp_start;
 	long	last_eat;
+	bool	right_hand;
 };
 
 bool	is_stop(t_philo *philo);

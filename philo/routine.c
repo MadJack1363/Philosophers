@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 11:48:00 by majacque          #+#    #+#             */
-/*   Updated: 2022/02/10 09:19:21 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/14 09:39:32 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	__get_data(t_philo *philo, t_routine *data)
 	data->time_stamp_start = philo->time_stamp_start;
 	data->tt_think = philo->tt_think;
 	data->last_eat = 0;
+	data->right_hand = philo->right_hand;
 	pthread_mutex_unlock(&philo->access_philo);
 }
 

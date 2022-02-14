@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 18:45:44 by majacque          #+#    #+#             */
-/*   Updated: 2022/02/10 13:53:32 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/14 10:03:17 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,53 @@ static int	__take_lfork(t_philo *philo, t_routine *data)
 	return (0);
 }
 
+static int	__take_forks(t_philo *philo, t_routine *data)
+{
+	if (data->right_hand)
+	{
+		if (__take_rfork(philo, data))
+			return (1);
+		if (__take_lfork(philo, data))
+		{
+			pthread_mutex_unlock(philo->r_fork);
+			return (1);
+		}
+	}
+	else
+	{
+		if (__take_lfork(philo, data))
+			return (1);
+		if (__take_rfork(philo, data))
+		{
+			pthread_mutex_unlock(philo->l_fork);
+			return (1);
+		}
+	}
+	return (0);
+}
+
+static void	__release_forks(t_philo *philo, t_routine *data)
+{
+	if (data->right_hand)
+	{
+		pthread_mutex_unlock(philo->l_fork);
+		pthread_mutex_unlock(philo->r_fork);
+	}
+	else
+	{
+		pthread_mutex_unlock(philo->r_fork);
+		pthread_mutex_unlock(philo->l_fork);
+	}
+}
+
 int	philo_eat(t_philo *philo, t_routine *data)
 {
 	int	ret;
 
 	if (is_alone(philo))
 		return (philo_set_state(philo, S_WAIT, 0));
-	if (__take_lfork(philo, data))
+	if (__take_forks(philo, data))
 		return (1);
-	if (__take_rfork(philo, data))
-	{
-		pthread_mutex_unlock(philo->l_fork);
-		return (1);
-	}
 	philo_talk(philo, "is eating");
 	pthread_mutex_lock(&philo->access_philo);
 	philo->nb_time_eat += 1;
@@ -83,8 +117,7 @@ int	philo_eat(t_philo *philo, t_routine *data)
 	ret = 0;
 	if (philo_wait(philo, data, data->tt_eat))
 		ret = 1;
-	pthread_mutex_unlock(philo->r_fork);
-	pthread_mutex_unlock(philo->l_fork);
+	__release_forks(philo, data);
 	usleep(200);
 	if (ret)
 		return (1);

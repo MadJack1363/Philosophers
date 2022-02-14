@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 18:12:04 by majacque          #+#    #+#             */
-/*   Updated: 2022/02/10 11:25:58 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/14 09:37:37 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ struct s_philo
 	t_state	state;
 	bool	stop;
 	bool	full;
+	bool	right_hand;
 	int		tt_eat;
 	int		tt_sleep;
 	int		tt_think;
@@ -74,8 +75,8 @@ void	philos_join(pthread_t *philos, int index);
 void	philos_stop(t_mutex *tlk_stick, t_philo *data_philo, int index);
 void	data_philo_init(t_environment *env);
 void	data_philo_clean(t_philo *data_philo, int index);
+void	run_simulation(t_environment *env, int nb_philo);
 
 void	*routine(void	*arg);
-void	run_simulation(t_environment *env, int nb_philo);
 
 #endif
