@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 20:21:01 by majacque          #+#    #+#             */
-/*   Updated: 2022/02/14 09:59:50 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/18 14:52:59 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 static int	__calc_tt_think(int nb_philo, t_philo *data)
 {
 	if (nb_philo % 2 != 0)
+	{
+		if (data->tt_eat / 2 > 100)
+			return (100);
 		return (data->tt_eat / 2);
+	}
 	return (0);
 }
 

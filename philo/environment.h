@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 18:12:04 by majacque          #+#    #+#             */
-/*   Updated: 2022/02/14 09:37:37 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/18 15:16:57 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ struct s_philo
 	int		tt_think;
 	int		tt_die;
 	int		nb_time_eat;
+	long	last_eat;
 	long	time_stamp_start;
 	long	time_stamp_die;
 };

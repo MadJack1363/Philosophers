@@ -6,7 +6,7 @@
 #    By: majacque <majacque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/21 15:09:55 by majacque          #+#    #+#              #
-#    Updated: 2022/02/10 11:20:45 by majacque         ###   ########.fr        #
+#    Updated: 2022/02/18 14:25:23 by majacque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -126,4 +126,4 @@ drd:
 	@read -p "arguments: " arguments;	\
 	valgrind ${DRD_OPT} ./${NAME} $$arguments
 
-.PHONY: all clean fclean re fre valgrind helgrind drd
+.PHONY: all clean fclean re valgrind helgrind drd

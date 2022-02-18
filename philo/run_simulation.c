@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:56:25 by majacque          #+#    #+#             */
-/*   Updated: 2022/02/14 10:00:55 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/18 15:19:43 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ static t_philo	*__check_philo_state(t_environment *env, int nb_philo)
 	i = 0;
 	nb_philo_full = 0;
 	data = &env->data_philo[0];
-	while (!is_state(data, S_DEAD) && nb_philo_full != nb_philo)
+	while (!is_dead(data) && nb_philo_full < nb_philo)
 	{
 		pthread_mutex_lock(&data->access_philo);
-		if (!data->full && data->nb_time_eat == env->inputs.nb_time_must_eat)
+		if (!data->full && data->nb_time_eat >= env->inputs.nb_time_must_eat)
 		{
 			data->full = true;
 			nb_philo_full++;
@@ -76,17 +76,17 @@ static t_philo	*__check_philo_state(t_environment *env, int nb_philo)
 
 void	run_simulation(t_environment *env, int nb_philo)
 {
-	t_philo	*philo;
+	t_philo	*dead_philo;
 
 	if (nb_philo % 2 == 0)
 		__run_even_philos(env, nb_philo);
 	else
 		__run_odd_philos(env, nb_philo);
-	philo = __check_philo_state(env, nb_philo);
-	if (is_state(philo, S_DEAD))
+	dead_philo = __check_philo_state(env, nb_philo);
+	if (is_state(dead_philo, S_DEAD))
 	{
 		pthread_mutex_lock(&env->tlk_stick);
-		printf("%ld %d died\n", philo->time_stamp_die, philo->id);
+		printf("%ld %d died\n", dead_philo->time_stamp_die, dead_philo->id);
 		pthread_mutex_unlock(&env->tlk_stick);
 	}
 	philos_stop(&env->tlk_stick, env->data_philo, nb_philo);

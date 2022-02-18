@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 17:40:54 by majacque          #+#    #+#             */
-/*   Updated: 2022/02/09 04:01:41 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/18 15:16:40 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,29 @@ bool	is_state(t_philo *philo, t_state state)
 	return (false);
 }
 
-bool	is_starving(t_routine *data)
+bool	is_starving(t_philo *philo)
 {
 	long	time_stamp;
+	long	tmp;
 
-	time_stamp = get_time_stamp() - data->time_stamp_start;
-	if (time_stamp - data->last_eat >= data->tt_die)
+	pthread_mutex_lock(&philo->access_philo);
+	time_stamp = get_time_stamp() - philo->time_stamp_start;
+	tmp = time_stamp - philo->last_eat;
+	pthread_mutex_unlock(&philo->access_philo);
+	if (tmp >= philo->tt_die)
 		return (true);
+	return (false);
+}
+
+bool	is_dead(t_philo *philo)
+{
+	if (is_state(philo, S_DEAD))
+		return (true);
+	if (is_starving(philo))
+	{
+		philo_die(philo);
+		return (true);
+	}
 	return (false);
 }
 

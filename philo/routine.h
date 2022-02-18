@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 16:28:37 by majacque          #+#    #+#             */
-/*   Updated: 2022/02/14 09:37:55 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/18 15:16:52 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ struct s_routine
 	int		tt_think;
 	int		tt_die;
 	long	time_stamp_start;
-	long	last_eat;
 	bool	right_hand;
 };
 
 bool	is_stop(t_philo *philo);
 bool	is_state(t_philo *philo, t_state state);
-bool	is_starving(t_routine *data);
+bool	is_starving(t_philo *philo);
+bool	is_dead(t_philo *philo);
 bool	is_alone(t_philo *philo);
 
 int		philo_set_state(t_philo *philo, t_state new_state, int ret);

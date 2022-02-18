@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 11:48:00 by majacque          #+#    #+#             */
-/*   Updated: 2022/02/14 09:39:32 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/18 15:19:10 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static void	__get_data(t_philo *philo, t_routine *data)
 	data->tt_die = philo->tt_die;
 	data->time_stamp_start = philo->time_stamp_start;
 	data->tt_think = philo->tt_think;
-	data->last_eat = 0;
 	data->right_hand = philo->right_hand;
 	pthread_mutex_unlock(&philo->access_philo);
 }
@@ -59,8 +58,8 @@ static int	__action(t_philo *philo, t_routine *data)
 		if (philo_sleep(philo, data) && !is_state(philo, S_DEAD))
 			return (1);
 	}
-	if (!is_state(philo, S_DEAD) && is_starving(data))
-		philo_die(philo);
+	if (!is_state(philo, S_DEAD) && is_starving(philo))
+		return (philo_die(philo));
 	return (0);
 }
 

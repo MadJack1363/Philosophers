@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 18:45:44 by majacque          #+#    #+#             */
-/*   Updated: 2022/02/14 10:03:17 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/18 15:18:05 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,51 +14,45 @@
 
 static int	__take_rfork(t_philo *philo, t_routine *data)
 {
-	long	time_stamp;
-
+	(void)data;
 	if (is_stop(philo))
 		return (1);
-	if (is_starving(data))
+	if (is_starving(philo))
 		return (philo_die(philo));
-	pthread_mutex_lock(&philo->access_philo);
 	pthread_mutex_lock(philo->r_fork);
-	if (is_starving(data))
+	if (is_stop(philo))
 	{
 		pthread_mutex_unlock(philo->r_fork);
-		pthread_mutex_unlock(&philo->access_philo);
+		return (1);
+	}
+	if (is_starving(philo))
+	{
+		pthread_mutex_unlock(philo->r_fork);
 		return (philo_die(philo));
 	}
-	pthread_mutex_lock(philo->tlk_stick);
-	time_stamp = get_time_stamp() - philo->time_stamp_start;
-	if (philo->stop == false)
-		printf("%ld %d %s\n", time_stamp, philo->id, "has taken a fork");
-	pthread_mutex_unlock(philo->tlk_stick);
-	pthread_mutex_unlock(&philo->access_philo);
+	philo_talk(philo, "has taken a fork");
 	return (0);
 }
 
 static int	__take_lfork(t_philo *philo, t_routine *data)
 {
-	long	time_stamp;
-
+	(void)data;
 	if (is_stop(philo))
 		return (1);
-	if (is_starving(data))
+	if (is_starving(philo))
 		return (philo_die(philo));
-	pthread_mutex_lock(&philo->access_philo);
 	pthread_mutex_lock(philo->l_fork);
-	if (is_starving(data))
+	if (is_stop(philo))
 	{
 		pthread_mutex_unlock(philo->l_fork);
-		pthread_mutex_unlock(&philo->access_philo);
+		return (1);
+	}
+	if (is_starving(philo))
+	{
+		pthread_mutex_unlock(philo->l_fork);
 		return (philo_die(philo));
 	}
-	pthread_mutex_lock(philo->tlk_stick);
-	time_stamp = get_time_stamp() - philo->time_stamp_start;
-	if (philo->stop == false)
-		printf("%ld %d %s\n", time_stamp, philo->id, "has taken a fork");
-	pthread_mutex_unlock(philo->tlk_stick);
-	pthread_mutex_unlock(&philo->access_philo);
+	philo_talk(philo, "has taken a fork");
 	return (0);
 }
 
@@ -111,14 +105,13 @@ int	philo_eat(t_philo *philo, t_routine *data)
 		return (1);
 	philo_talk(philo, "is eating");
 	pthread_mutex_lock(&philo->access_philo);
+	philo->last_eat = get_time_stamp() - data->time_stamp_start;
 	philo->nb_time_eat += 1;
 	pthread_mutex_unlock(&philo->access_philo);
-	data->last_eat = get_time_stamp() - data->time_stamp_start;
 	ret = 0;
 	if (philo_wait(philo, data, data->tt_eat))
 		ret = 1;
 	__release_forks(philo, data);
-	usleep(200);
 	if (ret)
 		return (1);
 	return (philo_set_state(philo, S_SLEEP, ret));
