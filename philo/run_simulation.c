@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:56:25 by majacque          #+#    #+#             */
-/*   Updated: 2022/02/18 15:19:43 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/18 15:54:41 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ static t_philo	*__check_philo_state(t_environment *env, int nb_philo)
 	while (!is_dead(data) && nb_philo_full < nb_philo)
 	{
 		pthread_mutex_lock(&data->access_philo);
-		if (!data->full && data->nb_time_eat >= env->inputs.nb_time_must_eat)
+		if (env->inputs.nb_time_must_eat >= 0
+			&& !data->full && data->nb_time_eat >= env->inputs.nb_time_must_eat)
 		{
 			data->full = true;
 			nb_philo_full++;
 		}
 		pthread_mutex_unlock(&data->access_philo);
-		i++;
-		if (i == nb_philo)
+		if (++i == nb_philo)
 		{
 			usleep(200);
 			i = 0;
