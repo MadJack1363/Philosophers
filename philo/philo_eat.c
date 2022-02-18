@@ -6,7 +6,7 @@
 /*   By: majacque <majacque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 18:45:44 by majacque          #+#    #+#             */
-/*   Updated: 2022/02/18 15:54:55 by majacque         ###   ########.fr       */
+/*   Updated: 2022/02/18 16:00:04 by majacque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,10 @@ int	philo_eat(t_philo *philo, t_routine *data)
 	int	ret;
 
 	if (is_alone(philo))
+	{
+		philo_talk(philo, "I need more fork... I'm gonna die... I'll wait...");
 		return (philo_set_state(philo, S_WAIT, 0));
+	}
 	if (__take_forks(philo, data))
 		return (1);
 	philo_talk(philo, "is eating");
